@@ -1,106 +1,160 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import TraceabilityMatrix from '../../../components/ipas/TraceabilityMatrix';
 import CollisionAlert from '../../../components/ipas/CollisionAlert';
+import CalendarView from '../../../components/ipas/CalendarView';
+import ArchitecturalGrid from '../../../components/ipas/ArchitecturalGrid';
+import BIDashboard from '../../../components/ipas/BIDashboard';
 import { SALONES_DB } from '../../../data/salonesData';
 import { SOLICITUDES_DB } from '../../../data/solicitudesData';
 import { ejecutarOptimizacionIPAS, Asignacion } from '../../../lib/ipas/solver';
+import { esViable } from '../../../lib/ipas/calculator';
 
-export default function AdminAsignacionPage() {
+export default function AdminIPASPage() {
   const [asignaciones, setAsignaciones] = useState<Asignacion[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [hasCollisions, setHasCollisions] = useState(false);
   const [executed, setExecuted] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [authError, setAuthError] = useState(false);
 
-  const runAlgorithm = () => {
-    setLoading(true);
-    // Simular un retardo para la UX (aunque el script local tomaría milisegundos)
-    setTimeout(() => {
-      const results = ejecutarOptimizacionIPAS(SOLICITUDES_DB, SALONES_DB);
-      setAsignaciones(results);
-      // Simulate that a collision was resolved during execution if we have results
-      setHasCollisions(results.length > 0 && Math.random() > 0.5); 
-      setLoading(false);
-      setExecuted(true);
-    }, 800);
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === 'posgradoseco2026FalcTg') {
+      setIsAuthenticated(true);
+      setAuthError(false);
+    } else {
+      setAuthError(true);
+    }
   };
 
-  const totalScore = asignaciones.reduce((acc, curr) => acc + curr.resultadoIpas.total, 0);
-  const avgScore = asignaciones.length > 0 ? (totalScore / asignaciones.length).toFixed(2) : 0;
+  // BUG FIX: Calculate rejected requests dynamically from real data
+  const rejectedRequests = useMemo(() => {
+    if (SOLICITUDES_DB.length === 0 || SALONES_DB.length === 0) return [];
+    return SOLICITUDES_DB
+      .filter(sol => !SALONES_DB.some(salon => esViable(sol, salon)))
+      .map(sol => ({
+        programa: sol.nombrePrograma,
+        razon: `Ningún salón del inventario cumple con las restricciones duras (Aforo E=${sol.E}${sol.reqStreaming ? ', Streaming' : ''}${sol.reqSoftware ? ', Software' : ''}${sol.reqAccesibilidad ? ', Accesibilidad: ' + sol.tipoAccesibilidad : ''}).`
+      }));
+  }, []);
+
+  const handleExecute = () => {
+    const resultado = ejecutarOptimizacionIPAS(SOLICITUDES_DB, SALONES_DB);
+    setAsignaciones(resultado);
+    setExecuted(true);
+  };
+
+  const isProductionReady = SALONES_DB.length === 0;
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-[#FAFAFA] flex items-center justify-center p-4">
+        <div className="bg-white p-8 rounded-xl shadow-refined border-refined max-w-md w-full">
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-serif font-bold text-[#7A1B22] mb-2">Acceso Restringido</h1>
+            <p className="text-gray-500 text-sm">Portal Administrativo IPAS</p>
+          </div>
+          <form onSubmit={handleLogin} className="space-y-4">
+            <div>
+              <label className="block text-sm font-bold text-[#111827] mb-1">Contraseña de Administrador</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all"
+                placeholder="••••••••••••"
+                required
+              />
+              {authError && (
+                <p className="text-[#7A1B22] text-xs font-bold mt-2">Contraseña incorrecta. Acceso denegado.</p>
+              )}
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-[#111827] hover:bg-[#7A1B22] text-white font-bold py-3 px-4 rounded transition-colors shadow-sm"
+            >
+              Autenticar
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FAFAFA] py-10">
+      <div className="max-w-6xl mx-auto px-4">
         
-        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Panel de Despliegue IPAS</h1>
-            <p className="mt-1 text-sm text-gray-500">
-              Administración y ejecución del algoritmo multicriterio de asignación de espacios físicos (Fases 3, 4 y 5).
+        <header className="mb-8 border-b border-gray-200 pb-5">
+          <h1 className="text-3xl font-serif font-bold text-[#7A1B22] mb-2">Panel Administrativo IPAS</h1>
+          <p className="text-[#111827] opacity-80">
+            Consola central de resolución de Operations Research. Este módulo orquesta la Fase 3, 4 y 5 del algoritmo para la asignación óptima de la infraestructura académica.
+          </p>
+        </header>
+
+        {isProductionReady ? (
+          <div className="bg-white p-8 rounded-xl shadow-refined border-refined text-center">
+            <h2 className="text-xl font-bold text-[#111827] mb-3">Sistema en Modo Producción</h2>
+            <p className="text-gray-500 mb-6 max-w-lg mx-auto">
+              La base de datos se encuentra vacía a la espera de las solicitudes paramétricas de los coordinadores y la sincronización con el inventario de la Facultad.
             </p>
-          </div>
-          <div className="mt-4 md:mt-0">
-            <button 
-              onClick={runAlgorithm}
-              disabled={loading}
-              className={`inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white ${loading ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-700 hover:bg-blue-800'}`}
-            >
-              {loading ? (
-                <>
-                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  Resolviendo ILP...
-                </>
-              ) : 'Ejecutar Algoritmo de Optimización'}
+            <button disabled className="bg-gray-300 text-gray-500 font-medium px-6 py-3 rounded cursor-not-allowed shadow-sm">
+              Ejecutar Algoritmo de Optimización (Deshabilitado)
             </button>
           </div>
-        </div>
+        ) : (
+          <>
+            {/* Phase 2: Dynamic Alert System */}
+            <CollisionAlert collisions={rejectedRequests} />
 
-        {/* Resumen */}
-        {executed && (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 mb-8">
-            <div className="bg-white overflow-hidden shadow rounded-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <dt className="text-sm font-medium text-gray-500 truncate">Total Programas Asignados</dt>
-                <dd className="mt-1 text-3xl font-semibold text-gray-900">{asignaciones.length} / {SOLICITUDES_DB.length}</dd>
+            {/* Execution Dashboard */}
+            <div className="bg-white p-8 rounded-xl shadow-refined border-refined flex flex-col md:flex-row items-center justify-between gap-6">
+              <div>
+                <h2 className="text-xl font-bold text-[#111827]">Estado del Pool de Datos (Modo Desarrollo)</h2>
+                <p className="text-sm text-gray-500 mt-1">
+                  Solicitudes en el pool: {SOLICITUDES_DB.length} | Salones en inventario: {SALONES_DB.length} | Rechazadas por restricciones duras: {rejectedRequests.length}
+                  {executed && (
+                    <> | Descartes algorítmicos: {SOLICITUDES_DB.length - rejectedRequests.length - asignaciones.length}</>
+                  )}
+                </p>
               </div>
-            </div>
-            <div className="bg-white overflow-hidden shadow rounded-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <dt className="text-sm font-medium text-gray-500 truncate">Promedio IPAS Global</dt>
-                <dd className="mt-1 text-3xl font-semibold text-green-600">{avgScore} pts</dd>
-              </div>
-            </div>
-            <div className="bg-white overflow-hidden shadow rounded-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <dt className="text-sm font-medium text-gray-500 truncate">Estado de Restricciones</dt>
-                <dd className="mt-1 text-lg font-semibold text-blue-600">Viabilidad 100% Garantizada</dd>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Phase 4: Collision Alert */}
-        {hasCollisions && <CollisionAlert />}
-
-        {/* Phase 5: Traceability Matrix */}
-        {executed && (
-          <div className="mt-8">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-800">Matriz de Trazabilidad (Fase 5)</h2>
-              <button className="text-sm text-blue-600 font-medium bg-blue-50 px-3 py-1 rounded border border-blue-200 hover:bg-blue-100">
-                Publicar Resolución Inmutable
+              
+              <button 
+                onClick={handleExecute}
+                className="bg-[#111827] hover:bg-[#7A1B22] text-white font-bold py-3 px-8 rounded transition-colors shadow-refined whitespace-nowrap"
+              >
+                {executed ? 'Recalcular Algoritmo IPAS' : 'Ejecutar Algoritmo de Optimización'}
               </button>
             </div>
-            <p className="text-sm text-gray-500 mt-1">
-              Desglose detallado de la función objetivo. Este registro prueba matemáticamente que la asignación no tuvo sesgos.
-            </p>
-            <TraceabilityMatrix asignaciones={asignaciones} />
-          </div>
-        )}
 
+            {/* Phase 5: Results */}
+            {executed && (
+              <div className="mt-8 space-y-8">
+                
+                <BIDashboard asignaciones={asignaciones} />
+
+                <ArchitecturalGrid asignaciones={asignaciones} />
+
+                <CalendarView asignaciones={asignaciones} />
+                
+                <div>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-200 pb-4">
+                    <div>
+                      <h2 className="text-2xl font-serif font-bold text-[#7A1B22]">Matriz de Trazabilidad (Fase 5)</h2>
+                      <p className="text-sm text-[#111827] opacity-80 mt-1">
+                        Desglose detallado de la función objetivo. Este registro prueba matemáticamente que la asignación no tuvo sesgos.
+                      </p>
+                    </div>
+                    <button className="text-sm text-[#7A1B22] font-bold bg-[#C2A661]/20 px-4 py-2 rounded hover:bg-[#C2A661]/30 transition-colors border border-[#C2A661]/30 whitespace-nowrap">
+                      Exportar Resolución (PDF)
+                    </button>
+                  </div>
+                  <TraceabilityMatrix asignaciones={asignaciones} />
+                </div>
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );
