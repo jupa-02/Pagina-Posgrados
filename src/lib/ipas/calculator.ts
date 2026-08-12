@@ -6,14 +6,15 @@ export function calcularIOA(C: number, E: number): number {
   return (1 - Math.abs((C - E) / C)) * 100;
 }
 
-export function calcularICT(salonValor: number, requerido: boolean): number {
-  if (requerido) {
-    return 100;
-  } else {
-    // Penalize assigning high tech rooms to programs that don't need it
-    // If salonValor is 9 (max), score is 10. If 1 (min), score is 90.
-    return 100 - (salonValor * 10);
-  }
+// Nueva formula ICT específica
+export function calcularICT(salon: Salon, solicitud: Solicitud): number {
+  let score = 100;
+  // Si sobra streaming y no lo pidieron, penalizamos 10 pts
+  if (salon.techStreaming && !solicitud.reqStreaming) score -= 10;
+  // Si sobra software y no lo pidieron, penalizamos 20 pts (licencias son caras)
+  if (salon.techSoftware && !solicitud.reqSoftware) score -= 20;
+  
+  return Math.max(0, score);
 }
 
 export function calcularFAP(nivelFormacion: string, tipoSalon: string): number {
@@ -33,7 +34,7 @@ export interface IpasResult {
 
 export function calcularIPAS(solicitud: Solicitud, salon: Salon): IpasResult {
   const ioa = calcularIOA(salon.capacidad, solicitud.E);
-  const ict = calcularICT(salon.tecnologiaValor, solicitud.tecnologiaRequerida);
+  const ict = calcularICT(salon, solicitud);
   const fide = solicitud.docenteForaneoPuntos;
   const idh = solicitud.franjaHorariaPuntos;
   const fap = calcularFAP(solicitud.nivelFormacion, salon.tipo);
@@ -48,11 +49,27 @@ export function esViable(solicitud: Solicitud, salon: Salon): boolean {
   // 1. Aforo
   if (solicitud.E > salon.capacidad) return false;
   
-  // 2. Accesibilidad (Multiplicador absoluto / restricción)
-  if (solicitud.requiereAccesibilidad && !salon.esPrimeraPlanta) return false;
+  // 2. Accesibilidad Experta
+  if (solicitud.reqAccesibilidad) {
+    if (solicitud.tipoAccesibilidad === 'Silla de Ruedas') {
+      // El salón debe estar en 1ra planta O tener rampa O tener ascensor
+      if (!salon.esPrimeraPlanta && !salon.tieneRampa && !salon.tieneAscensor) {
+        return false;
+      }
+      // Adicionalmente, si NO es 1ra planta, DEBE tener ascensor (rampa sola no basta para pisos altos)
+      if (!salon.esPrimeraPlanta && !salon.tieneAscensor) {
+        return false;
+      }
+    }
+    if (solicitud.tipoAccesibilidad === 'Solo Primera Planta' && !salon.esPrimeraPlanta) {
+      return false;
+    }
+  }
 
-  // 3. Tecnología dura (si pide, el salón debe tener al menos algo más que lo básico, V_i > 1)
-  if (solicitud.tecnologiaRequerida && salon.tecnologiaValor <= 1) return false;
+  // 3. Tecnología Específica (Hard constraint: si pide X, DEBE tener X)
+  if (solicitud.reqProyector && !salon.techProyector) return false;
+  if (solicitud.reqStreaming && !salon.techStreaming) return false;
+  if (solicitud.reqSoftware && !salon.techSoftware) return false;
 
   return true;
 }

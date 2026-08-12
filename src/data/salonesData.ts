@@ -2,20 +2,31 @@ export interface Salon {
   id: string;
   nombre: string;
   capacidad: number; // C
-  tecnologiaValor: number; // V_i (1: Proyector, 3: Streaming, 5: Software. Total max 9)
+  
+  // Specific Technological Capabilities
+  techProyector: boolean;
+  techStreaming: boolean;
+  techSoftware: boolean;
+  
   tipo: 'Seminario' | 'Magistral';
+  
+  // Specific Accessibility Capabilities
   esPrimeraPlanta: boolean;
+  tieneRampa: boolean;
+  tieneAscensor: boolean;
 }
 
-export const SALONES_DB: Salon[] = [
-  { id: "S1", nombre: "Salón Magistral 101", capacidad: 40, tecnologiaValor: 1, tipo: 'Magistral', esPrimeraPlanta: true },
-  { id: "S2", nombre: "Auditorio Principal", capacidad: 100, tecnologiaValor: 9, tipo: 'Magistral', esPrimeraPlanta: true },
-  { id: "S3", nombre: "Sala de Cómputo Avanzado", capacidad: 30, tecnologiaValor: 5, tipo: 'Seminario', esPrimeraPlanta: false },
-  { id: "S4", nombre: "Salón Híbrido 201", capacidad: 35, tecnologiaValor: 4, tipo: 'Magistral', esPrimeraPlanta: false },
-  { id: "S5", nombre: "Sala de Seminarios A", capacidad: 20, tecnologiaValor: 4, tipo: 'Seminario', esPrimeraPlanta: true },
-  { id: "S6", nombre: "Sala de Seminarios B", capacidad: 20, tecnologiaValor: 1, tipo: 'Seminario', esPrimeraPlanta: false },
-  { id: "S7", nombre: "Salón Magistral 202", capacidad: 45, tecnologiaValor: 1, tipo: 'Magistral', esPrimeraPlanta: false },
-  { id: "S8", nombre: "Salón Híbrido 301", capacidad: 50, tecnologiaValor: 4, tipo: 'Magistral', esPrimeraPlanta: false },
-  { id: "S9", nombre: "Sala de Reuniones", capacidad: 15, tecnologiaValor: 1, tipo: 'Seminario', esPrimeraPlanta: true },
-  { id: "S10", nombre: "Salón Magistral 302", capacidad: 40, tecnologiaValor: 1, tipo: 'Magistral', esPrimeraPlanta: false },
+const mockSalones: Salon[] = [
+  { id: "S1", nombre: "Salón Magistral 101", capacidad: 40, techProyector: true, techStreaming: false, techSoftware: false, tipo: 'Magistral', esPrimeraPlanta: true, tieneRampa: true, tieneAscensor: false },
+  { id: "S2", nombre: "Auditorio Principal", capacidad: 100, techProyector: true, techStreaming: true, techSoftware: true, tipo: 'Magistral', esPrimeraPlanta: true, tieneRampa: true, tieneAscensor: true },
+  { id: "S3", nombre: "Sala de Cómputo Avanzado", capacidad: 30, techProyector: true, techStreaming: false, techSoftware: true, tipo: 'Seminario', esPrimeraPlanta: false, tieneRampa: false, tieneAscensor: true },
+  { id: "S4", nombre: "Salón Híbrido 201", capacidad: 35, techProyector: true, techStreaming: true, techSoftware: false, tipo: 'Magistral', esPrimeraPlanta: false, tieneRampa: false, tieneAscensor: true },
+  { id: "S5", nombre: "Sala de Seminarios A", capacidad: 20, techProyector: true, techStreaming: true, techSoftware: false, tipo: 'Seminario', esPrimeraPlanta: true, tieneRampa: true, tieneAscensor: false },
+  { id: "S6", nombre: "Sala de Seminarios B", capacidad: 20, techProyector: true, techStreaming: false, techSoftware: false, tipo: 'Seminario', esPrimeraPlanta: false, tieneRampa: false, tieneAscensor: false },
+  { id: "S7", nombre: "Salón Magistral 202", capacidad: 45, techProyector: true, techStreaming: false, techSoftware: false, tipo: 'Magistral', esPrimeraPlanta: false, tieneRampa: false, tieneAscensor: true },
+  { id: "S8", nombre: "Salón Híbrido 301", capacidad: 50, techProyector: true, techStreaming: true, techSoftware: false, tipo: 'Magistral', esPrimeraPlanta: false, tieneRampa: false, tieneAscensor: true },
+  { id: "S9", nombre: "Sala de Reuniones", capacidad: 15, techProyector: true, techStreaming: false, techSoftware: false, tipo: 'Seminario', esPrimeraPlanta: true, tieneRampa: true, tieneAscensor: false },
+  { id: "S10", nombre: "Salón Magistral 302", capacidad: 40, techProyector: true, techStreaming: false, techSoftware: false, tipo: 'Magistral', esPrimeraPlanta: false, tieneRampa: false, tieneAscensor: false },
 ];
+
+export const SALONES_DB: Salon[] = mockSalones;

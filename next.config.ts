@@ -1,11 +1,14 @@
 import type { NextConfig } from "next";
 
+const isStaticExport = process.env.STATIC_EXPORT === 'true';
+
 const nextConfig: NextConfig = {
-  output: 'export',
-  // Solo aplicamos basePath en producción para que el entorno local siga funcionando normal
-  basePath: process.env.NODE_ENV === 'production' ? '/Pagina-Posgrados' : '',
+  // Solo activamos 'export' cuando se construye para GitHub Pages (STATIC_EXPORT=true)
+  // En modo desarrollo/servidor necesitamos API routes activas
+  ...(isStaticExport ? { output: 'export' } : {}),
+  basePath: isStaticExport ? '/Pagina-Posgrados' : '',
   images: {
-    unoptimized: true, // Requerido para exportaciones estáticas
+    unoptimized: true,
   },
 };
 

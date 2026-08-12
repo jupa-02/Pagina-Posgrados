@@ -81,6 +81,8 @@ export default function Footer() {
             © {new Date().getFullYear()} Facultad de Ciencias Económicas - Universidad de Cartagena. Todos los derechos reservados.
           </p>
           <div className="flex gap-6">
+            <Link href="/admin/asignacion" className="text-gray-500 hover:text-[#C2A661] text-xs transition-colors">Admin IPAS</Link>
+            <Link href="/coordinadores/asignacion" className="text-gray-500 hover:text-[#C2A661] text-xs transition-colors">Coordinadores IPAS</Link>
             <Link href="#" className="text-gray-500 hover:text-white text-xs transition-colors">Políticas de Privacidad</Link>
             <Link href="#" className="text-gray-500 hover:text-white text-xs transition-colors">Términos y Condiciones</Link>
           </div>

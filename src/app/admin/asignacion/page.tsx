@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import TraceabilityMatrix from '../../../components/ipas/TraceabilityMatrix';
 import CollisionAlert from '../../../components/ipas/CollisionAlert';
 import CalendarView from '../../../components/ipas/CalendarView';
@@ -16,6 +16,15 @@ export default function AdminIPASPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState('');
   const [authError, setAuthError] = useState(false);
+  
+  const [dbMode, setDbMode] = useState<'demo' | 'live'>('live');
+  const [liveSolicitudes, setLiveSolicitudes] = useState<any[]>([]);
+  const [liveSalones, setLiveSalones] = useState<any[]>([]);
+  const [loadingDb, setLoadingDb] = useState(false);
+  const [dbError, setDbError] = useState('');
+
+  const activeSolicitudes = dbMode === 'demo' ? SOLICITUDES_DB : liveSolicitudes;
+  const activeSalones = dbMode === 'demo' ? SALONES_DB : liveSalones;
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,24 +36,58 @@ export default function AdminIPASPage() {
     }
   };
 
-  // BUG FIX: Calculate rejected requests dynamically from real data
+  useEffect(() => {
+    if (isAuthenticated && dbMode === 'live') {
+      fetchLiveData();
+    }
+  }, [isAuthenticated]);
+
   const rejectedRequests = useMemo(() => {
-    if (SOLICITUDES_DB.length === 0 || SALONES_DB.length === 0) return [];
-    return SOLICITUDES_DB
-      .filter(sol => !SALONES_DB.some(salon => esViable(sol, salon)))
+    if (activeSolicitudes.length === 0 || activeSalones.length === 0) return [];
+    return activeSolicitudes
+      .filter(sol => !activeSalones.some(salon => esViable(sol, salon)))
       .map(sol => ({
         programa: sol.nombrePrograma,
         razon: `Ningún salón del inventario cumple con las restricciones duras (Aforo E=${sol.E}${sol.reqStreaming ? ', Streaming' : ''}${sol.reqSoftware ? ', Software' : ''}${sol.reqAccesibilidad ? ', Accesibilidad: ' + sol.tipoAccesibilidad : ''}).`
       }));
-  }, []);
+  }, [activeSolicitudes, activeSalones]);
+
+  const fetchLiveData = async () => {
+    setLoadingDb(true);
+    setDbError('');
+    try {
+      const [resSol, resSal] = await Promise.all([
+        fetch('/api/ipas/solicitudes'),
+        fetch('/api/ipas/salones')
+      ]);
+      
+      if (!resSol.ok || !resSal.ok) throw new Error('Falló la conexión con Google Sheets');
+      
+      const dataSol = await resSol.json();
+      const dataSal = await resSal.json();
+      
+      setLiveSolicitudes(dataSol);
+      setLiveSalones(dataSal);
+      setDbMode('live');
+      setExecuted(false);
+    } catch (err: any) {
+      setDbError(err.message || 'Error desconocido');
+    } finally {
+      setLoadingDb(false);
+    }
+  };
 
   const handleExecute = () => {
-    const resultado = ejecutarOptimizacionIPAS(SOLICITUDES_DB, SALONES_DB);
+    if (activeSolicitudes.length === 0 || activeSalones.length === 0) {
+      alert("No hay datos suficientes para ejecutar el algoritmo.");
+      return;
+    }
+    const resultado = ejecutarOptimizacionIPAS(activeSolicitudes, activeSalones);
     setAsignaciones(resultado);
     setExecuted(true);
   };
 
-  const isProductionReady = SALONES_DB.length === 0;
+  const isProductionReady = activeSalones.length === 0 && !loadingDb && dbMode === 'demo';
 
   if (!isAuthenticated) {
     return (
@@ -92,40 +135,60 @@ export default function AdminIPASPage() {
           </p>
         </header>
 
-        {isProductionReady ? (
-          <div className="bg-white p-8 rounded-xl shadow-refined border-refined text-center">
-            <h2 className="text-xl font-bold text-[#111827] mb-3">Sistema en Modo Producción</h2>
-            <p className="text-gray-500 mb-6 max-w-lg mx-auto">
-              La base de datos se encuentra vacía a la espera de las solicitudes paramétricas de los coordinadores y la sincronización con el inventario de la Facultad.
-            </p>
-            <button disabled className="bg-gray-300 text-gray-500 font-medium px-6 py-3 rounded cursor-not-allowed shadow-sm">
-              Ejecutar Algoritmo de Optimización (Deshabilitado)
-            </button>
-          </div>
-        ) : (
-          <>
-            {/* Phase 2: Dynamic Alert System */}
-            <CollisionAlert collisions={rejectedRequests} />
+        <div className="bg-white p-8 rounded-xl shadow-refined border-refined mb-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+              <h2 className="text-xl font-bold text-[#111827]">Estado del Pool de Datos ({dbMode === 'demo' ? 'Modo Demostración' : 'Modo en Vivo'})</h2>
+              <p className="text-sm text-gray-500 mt-1">
+                {loadingDb ? 'Sincronizando con Google Sheets...' : `Solicitudes en el pool: ${activeSolicitudes.length} | Salones en inventario: ${activeSalones.length} | Rechazadas por restricciones duras: ${rejectedRequests.length}`}
+                {executed && !loadingDb && (
+                  <> | Descartes algorítmicos: {activeSolicitudes.length - rejectedRequests.length - asignaciones.length}</>
+                )}
+              </p>
+              {dbError && <p className="text-sm text-[#7A1B22] font-bold mt-2">Error: {dbError}</p>}
+            </div>
+            
+            <div className="flex gap-4 items-center">
+              <button
+                onClick={() => dbMode === 'demo' ? fetchLiveData() : setDbMode('demo')}
+                disabled={loadingDb}
+                className={`text-sm font-medium py-2 px-4 rounded border transition-colors ${
+                  dbMode === 'live' 
+                    ? 'bg-green-100 text-green-800 border-green-200 hover:bg-green-200'
+                    : 'bg-gray-100 text-gray-700 border-gray-200 hover:bg-gray-200'
+                }`}
+              >
+                {loadingDb ? 'Conectando...' : dbMode === 'demo' ? 'Conectar a Google Sheets' : 'Volver a Modo Demo'}
+              </button>
 
-            {/* Execution Dashboard */}
-            <div className="bg-white p-8 rounded-xl shadow-refined border-refined flex flex-col md:flex-row items-center justify-between gap-6">
-              <div>
-                <h2 className="text-xl font-bold text-[#111827]">Estado del Pool de Datos (Modo Desarrollo)</h2>
-                <p className="text-sm text-gray-500 mt-1">
-                  Solicitudes en el pool: {SOLICITUDES_DB.length} | Salones en inventario: {SALONES_DB.length} | Rechazadas por restricciones duras: {rejectedRequests.length}
-                  {executed && (
-                    <> | Descartes algorítmicos: {SOLICITUDES_DB.length - rejectedRequests.length - asignaciones.length}</>
-                  )}
-                </p>
-              </div>
-              
               <button 
                 onClick={handleExecute}
-                className="bg-[#111827] hover:bg-[#7A1B22] text-white font-bold py-3 px-8 rounded transition-colors shadow-refined whitespace-nowrap"
+                disabled={loadingDb || activeSalones.length === 0}
+                className="bg-[#111827] hover:bg-[#7A1B22] text-white font-bold py-3 px-8 rounded transition-colors shadow-refined whitespace-nowrap disabled:opacity-50"
               >
                 {executed ? 'Recalcular Algoritmo IPAS' : 'Ejecutar Algoritmo de Optimización'}
               </button>
             </div>
+          </div>
+        </div>
+
+        {loadingDb ? (
+          <div className="bg-white p-12 rounded-xl shadow-refined border-refined text-center flex flex-col items-center justify-center">
+             <div className="w-12 h-12 border-4 border-[#C2A661] border-t-transparent rounded-full animate-spin mb-4"></div>
+             <h2 className="text-xl font-bold text-[#111827] mb-2">Conectando con Google Sheets...</h2>
+             <p className="text-gray-500">Descargando datos en vivo desde el servidor.</p>
+          </div>
+        ) : isProductionReady ? (
+          <div className="bg-white p-8 rounded-xl shadow-refined border-refined text-center">
+            <h2 className="text-xl font-bold text-[#111827] mb-3">Sistema en Modo Producción (Vacío)</h2>
+            <p className="text-gray-500 mb-6 max-w-lg mx-auto">
+              La base de datos se encuentra vacía a la espera de las solicitudes paramétricas de los coordinadores y la sincronización con el inventario de la Facultad.
+            </p>
+          </div>
+        ) : (
+          <>
+            {/* Phase 3 & 4: Traceability & Validation */}
+            <CollisionAlert collisions={rejectedRequests} />
 
             {/* Phase 5: Results */}
             {executed && (
