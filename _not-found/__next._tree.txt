@@ -1,3 +1,3 @@
-:HL["/Pagina-Posgrados/_next/static/chunks/3mfgbvf6yjv3-.css","style"]
+:HL["/Pagina-Posgrados/_next/static/chunks/06rbfqa4q_u5a.css","style"]
 :HL["https://unicartagena.edu.co/images/logo/logo-unicaragena.svg","image"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"_vyzXT1BreUlI55QgM_YM"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"6fr1aLXInh5BFYJ5BGoFU"}
