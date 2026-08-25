@@ -49,9 +49,9 @@ worksheet.merge_range('B2:L2', 'FACULTAD DE CIENCIAS ECONÓMICAS', subtitle_form
 worksheet.merge_range('B3:L3', 'DEPARTAMENTO DE POSTGRADOS Y EDUCACIÓN CONTINUA', subtitle_format)
 worksheet.merge_range('B4:L4', 'FORMATO ESTANDARIZADO DE CRONOGRAMA DE ACTIVIDADES ACADÉMICAS', subtitle_format)
 
-# Insertar el logo
-worksheet.insert_image('A1', '/Users/juanpablo/Desktop/Pagina posgrados/public/logo-udec.png', 
-                       {'x_scale': 0.15, 'y_scale': 0.15, 'x_offset': 10, 'y_offset': 10})
+# Insertar el logo omitido temporalmente por fallo de formato de imagen
+# worksheet.insert_image('A1', '/Users/juanpablo/Desktop/Pagina posgrados/public/logo-udec.png', 
+#                       {'x_scale': 0.15, 'y_scale': 0.15, 'x_offset': 10, 'y_offset': 10})
 
 # Formato de la cabecera de la tabla
 header_format = workbook.add_format({
