@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { getGoogleSheet } from '../../../../lib/db/googleSheets';
 
+export const dynamic = 'force-static';
+
 export async function GET() {
   try {
     const doc = await getGoogleSheet();
