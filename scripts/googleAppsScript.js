@@ -28,7 +28,7 @@ function doPost(e) {
       MailApp.sendEmail({
         to: data.email,
         subject: "¡Qué emoción tenerte aquí! - Educación Continua UdeC",
-        htmlBody: \`
+        htmlBody: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
             <div style="text-align: center; padding: 20px 0;">
               <h2 style="color: #8B0000; margin: 0;">Bienvenido(a) a la Universidad de Cartagena, \${data.nombres}.</h2>
@@ -62,7 +62,7 @@ function doPost(e) {
             <p>Agradecemos su confianza en nuestros más de 200 años de trayectoria académica.</p>
             <p>Atentamente,<br><strong>Dirección de Posgrados y Educación Continua<br>Universidad de Cartagena</strong></p>
           </div>
-        \`
+        `
       });
       
     } else if (sheetType === 'contacto') {
@@ -71,7 +71,7 @@ function doPost(e) {
       MailApp.sendEmail({
         to: data.email,
         subject: "¡Hola! Hemos recibido tu consulta - Posgrados UdeC",
-        htmlBody: \`
+        htmlBody: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
             <div style="padding: 20px 0;">
               <h2 style="color: #8B0000; margin: 0;">Confirmación de Recepción de Consulta</h2>
@@ -87,7 +87,7 @@ function doPost(e) {
             <p>Quedamos a su entera disposición.</p>
             <p>Cordialmente,<br><strong>Departamento de Admisiones<br>Universidad de Cartagena</strong></p>
           </div>
-        \`
+        `
       });
       
     } else if (sheetType === 'empresa') {
@@ -96,7 +96,7 @@ function doPost(e) {
       MailApp.sendEmail({
         to: data.email,
         subject: "Alianza Estratégica: Solicitud Corporativa Recibida - UdeC Empresas",
-        htmlBody: \`
+        htmlBody: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
             <div style="padding: 20px 0;">
               <h2 style="color: #8B0000; margin: 0;">Desarrollo Estratégico Corporativo para \${data.nombreEmpresa}</h2>
@@ -113,7 +113,7 @@ function doPost(e) {
             <p>Estamos listos para transformar el conocimiento de su equipo en resultados tangibles.</p>
             <p>Cordialmente,<br><strong>UdeC Corporate & Co-Creation Labs</strong></p>
           </div>
-        \`
+        `
       });
     }
     
