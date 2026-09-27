@@ -3,6 +3,7 @@ import Hero from "@/components/sections/Hero";
 import ValueProposition from "@/components/sections/ValueProposition";
 import Partnerships from "@/components/sections/Partnerships";
 import ProgramCatalog from "@/components/sections/ProgramCatalog";
+import BolsaCreditosBanner from "@/components/sections/BolsaCreditosBanner";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <ValueProposition />
       <Partnerships />
       <ProgramCatalog />
+      <BolsaCreditosBanner />
     </main>
   );
 }

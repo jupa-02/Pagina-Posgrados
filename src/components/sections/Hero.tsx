@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Building2 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Hero() {
@@ -19,31 +19,30 @@ export default function Hero() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="lg:col-span-7 pr-0 lg:pr-12"
           >
-
-            
-            <h1 className="text-6xl sm:text-7xl lg:text-[5.5rem] font-serif font-medium text-gray-900 leading-[1.05] mb-8 tracking-tight">
+            <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-serif font-medium text-gray-900 leading-[1.05] mb-8 tracking-tight">
               Liderazgo que <br />
               <span className="italic text-gray-500">transforma</span> el <br />
               mundo real.
             </h1>
             
             <p className="text-lg text-gray-600 mb-10 max-w-xl leading-relaxed font-light">
-              Formación posgradual de excelencia en la Facultad de Ciencias Económicas. Especialízate con programas diseñados para liderar los desafíos globales.
+              Formación posgradual y educación continua de excelencia en la Facultad de Ciencias Económicas. Especialízate con cursos cortos prácticos dictados por docentes titulares o potencia a tu organización con nuestro programa de créditos para empresas.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-5">
               <Link 
                 href="/#programas"
-                className="inline-flex justify-center items-center gap-2 bg-[var(--color-udec-crimson)] text-white px-8 py-4 text-sm font-semibold tracking-wide hover:bg-gray-900 transition-colors"
+                className="inline-flex justify-center items-center gap-2 bg-[var(--color-udec-crimson)] text-white px-8 py-4 text-sm font-semibold tracking-wide hover:bg-gray-900 transition-colors shadow-sm"
               >
-                Explorar Programas
+                Explorar Cursos Cortos
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link 
-                href="/contacto"
-                className="inline-flex justify-center items-center gap-2 text-gray-900 border border-gray-300 px-8 py-4 text-sm font-semibold hover:border-gray-900 transition-colors"
+                href="/empresas"
+                className="inline-flex justify-center items-center gap-2 text-gray-900 border border-gray-300 px-8 py-4 text-sm font-semibold hover:border-gray-900 transition-colors bg-white/60 shadow-2xs"
               >
-                Admisiones
+                <Building2 className="w-4 h-4 text-gray-700" />
+                UdeC Empresas
               </Link>
             </div>
           </motion.div>
@@ -55,11 +54,11 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
             className="lg:col-span-5 relative"
           >
-            <div className="aspect-[4/5] overflow-hidden rounded-sm bg-gray-200">
+            <div className="aspect-[4/5] overflow-hidden rounded-sm bg-gray-200 shadow-xl">
               <img 
                 src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
-                alt="Campus Universitario"
-                className="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                alt="Campus Universitario Universidad de Cartagena"
+                className="w-full h-full object-cover grayscale-[15%] hover:grayscale-0 transition-all duration-700"
               />
             </div>
             {/* Minimalist badge overlapping */}
@@ -79,8 +78,8 @@ export default function Hero() {
             className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-8"
           >
             <div>
-              <h3 className="text-4xl font-serif text-gray-900 mb-2">11</h3>
-              <p className="text-sm text-gray-500 font-medium tracking-wide uppercase">Programas Especializados</p>
+              <h3 className="text-4xl font-serif text-gray-900 mb-2">124</h3>
+              <p className="text-sm text-gray-500 font-medium tracking-wide uppercase">Cursos Cortos Ejecutivos</p>
             </div>
 
             <div>

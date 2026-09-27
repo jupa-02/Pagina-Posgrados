@@ -1,0 +1,20 @@
+{
+  "name": "posgrados-video-pipeline",
+  "version": "1.0.0",
+  "description": "Pipeline Remotion para Video Institucional de la Plataforma de Educación Continua FCE - Universidad de Cartagena",
+  "private": true,
+  "scripts": {
+    "dev": "remotion preview src/index.ts",
+    "preview": "remotion preview src/index.ts",
+    "voice:gemini": "/opt/anaconda3/bin/python3 scripts/generate_voice_gemini.py",
+    "render": "remotion render src/index.ts VideoInstitucionalPosgrados out/video_institucional_fce.mp4"
+  },
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.1.0",
+    "@remotion/bundler": "^4.0.126",
+    "@remotion/cli": "^4.0.126",
+    "@remotion/zod-types": "^4.0.126",
+    "remotion": "^4.0.126",
+    "zod": "^3.22.4"
+  }
+}

@@ -46,40 +46,40 @@ export default function Partnerships() {
   const scrollItems = [...PARTNERS, ...PARTNERS];
 
   return (
-    <section className="py-24 bg-gray-900 border-y border-gray-800 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <section className="py-20 bg-[#FAF9F5] border-y border-stone-200/80 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400 mb-4 block">
-            Alianzas Estratégicas
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-udec-crimson)] mb-3 block">
+            Alianzas y Convenios Institucionales
           </span>
-          <h2 className="text-3xl lg:text-4xl font-serif text-white mb-6 leading-tight">
-            Nuestros Convenios de Descuento
+          <h2 className="text-3xl lg:text-4xl font-serif text-stone-900 mb-4 leading-tight">
+            Convenios de Descuento Corporativo
           </h2>
-          <p className="text-gray-400 font-light leading-relaxed">
-            Hemos consolidado alianzas con prestigiosas instituciones y empresas para brindarte beneficios exclusivos y tarifas preferenciales en nuestra oferta de posgrados.
+          <p className="text-stone-600 font-light text-sm sm:text-base leading-relaxed">
+            Alianzas vigentes con entidades públicas y privadas para tarifas preferenciales en formación continua y posgrados.
           </p>
         </div>
       </div>
 
       {/* Marquee Container */}
-      <div className="relative w-full overflow-hidden bg-gray-900 py-8">
+      <div className="relative w-full overflow-hidden bg-white/70 py-6 border-y border-stone-200/50">
         
-        {/* Gradientes laterales para efecto de difuminado */}
-        <div className="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-gray-900 to-transparent z-10"></div>
-        <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-gray-900 to-transparent z-10"></div>
+        {/* Gradientes laterales para efecto de difuminado sutil */}
+        <div className="absolute top-0 left-0 w-28 h-full bg-gradient-to-r from-[#FAF9F5] to-transparent z-10 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-28 h-full bg-gradient-to-l from-[#FAF9F5] to-transparent z-10 pointer-events-none" />
         
         <div className="flex w-max animate-scroll">
           {scrollItems.map((partner, index) => (
             <div 
               key={index}
-              className="flex items-center px-12 group cursor-default"
+              className="flex items-center px-8 group cursor-default"
             >
-              <span className="text-xl md:text-2xl font-sans font-bold text-gray-600 uppercase tracking-widest whitespace-nowrap transition-colors duration-500 hover:text-white">
+              <span className="text-lg md:text-xl font-sans font-bold text-stone-500 uppercase tracking-widest whitespace-nowrap transition-colors duration-300 group-hover:text-[var(--color-udec-crimson)]">
                 {partner}
               </span>
               {/* Separador */}
-              <span className="text-gray-700 ml-12 text-2xl font-light">/</span>
+              <span className="text-stone-300 ml-8 text-xl font-light">/</span>
             </div>
           ))}
         </div>

@@ -104,7 +104,7 @@ export default function RequestForm() {
                 Programa de Posgrado <InfoTooltip text="Identificador único del programa. Base para el cálculo del emparejamiento bipartito." />
               </label>
               {/* IMPORTANT: text-[#111827] forces the text color to fix the Safari/Dark mode bug */}
-              <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all" required value={formData.programaId} onChange={e => setFormData({...formData, programaId: e.target.value})}>
+              <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all text-gray-900" required value={formData.programaId} onChange={e => setFormData({...formData, programaId: e.target.value})}>
                 <option value="">Seleccione el programa...</option>
                 <option value="1">Doctorado en Administración</option>
                 <option value="3">Maestría en Desarrollo Territorial</option>
@@ -115,14 +115,14 @@ export default function RequestForm() {
               <label className="flex items-center text-sm font-bold text-[#111827] mb-1">
                 Aforo Estimado Estricto (E) <InfoTooltip text="Número exacto de estudiantes. Determina la eficiencia del uso del salón (IOA)." />
               </label>
-              <input type="number" min="1" max="100" required className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all" value={formData.estudiantes} onChange={e => { const v = parseInt(e.target.value); setFormData({...formData, estudiantes: isNaN(v) ? 0 : v}); }} />
+              <input type="number" min="1" max="100" required className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all text-gray-900" value={formData.estudiantes} onChange={e => { const v = parseInt(e.target.value); setFormData({...formData, estudiantes: isNaN(v) ? 0 : v}); }} />
             </div>
             
             <div>
               <label className="flex items-center text-sm font-bold text-[#111827] mb-1">
                 Nivel de Formación (FAP) <InfoTooltip text="Doctorados se priorizan en salas de junta; Maestrías en aulas magistrales." />
               </label>
-              <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all" value={formData.nivelFormacion} onChange={e => setFormData({...formData, nivelFormacion: e.target.value})}>
+              <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all text-gray-900" value={formData.nivelFormacion} onChange={e => setFormData({...formData, nivelFormacion: e.target.value})}>
                 <option value="Doctorado">Doctorado (Mesas U / Seminario)</option>
                 <option value="Maestría">Maestría / Especialización (Magistral)</option>
               </select>
@@ -132,7 +132,7 @@ export default function RequestForm() {
               <label className="flex items-center text-sm font-bold text-[#111827] mb-1">
                 Franja Horaria Solicitada (IDH) <InfoTooltip text="Mover el programa a una franja valle (Jueves) otorga puntos extra en el algoritmo." />
               </label>
-              <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all" value={formData.franjaHorariaPuntos} onChange={e => setFormData({...formData, franjaHorariaPuntos: parseInt(e.target.value)})}>
+              <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all text-gray-900" value={formData.franjaHorariaPuntos} onChange={e => setFormData({...formData, franjaHorariaPuntos: parseInt(e.target.value)})}>
                 <option value={100}>Valle (Jueves - Viernes AM)</option>
                 <option value={50}>Media (Viernes PM)</option>
                 <option value={0}>Pico (Viernes Noche - Sábado AM)</option>
@@ -198,7 +198,7 @@ export default function RequestForm() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-gray-200 ml-8 animate-in fade-in slide-in-from-top-2">
                 <div className="md:col-span-2">
                   <label className="block text-sm font-bold text-[#111827] mb-1">Procedencia (Nivel de Viáticos)</label>
-                  <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all" value={formData.docenteForaneoPuntos} onChange={e => setFormData({...formData, docenteForaneoPuntos: parseInt(e.target.value)})}>
+                  <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all text-gray-900" value={formData.docenteForaneoPuntos} onChange={e => setFormData({...formData, docenteForaneoPuntos: parseInt(e.target.value)})}>
                     <option value={100}>Internacional / Nacional con Tiquetes + Hotel (Alta Prioridad FIDE)</option>
                     <option value={50}>Invitado Sector Empresarial Local (Media Prioridad FIDE)</option>
                   </select>
@@ -206,7 +206,7 @@ export default function RequestForm() {
                 
                 <div className="md:col-span-2">
                   <label className="block text-sm font-bold text-[#111827] mb-1">Modalidad de Impartición <InfoTooltip text="Define cómo se entregará la clase, afectando si se requiere Streaming obligatorio." /></label>
-                  <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all" value={formData.modalidadDocente} onChange={e => setFormData({...formData, modalidadDocente: e.target.value})}>
+                  <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all text-gray-900" value={formData.modalidadDocente} onChange={e => setFormData({...formData, modalidadDocente: e.target.value})}>
                     <option value="Presencial">Presencial 100% (El docente viaja físicamente)</option>
                     <option value="Virtual">Virtual 100% (Docente transmite, estudiantes presenciales)</option>
                     <option value="Híbrida">Híbrida (Docente presencial + Streaming a otras sedes)</option>
@@ -215,11 +215,11 @@ export default function RequestForm() {
 
                 <div>
                   <label className="block text-sm font-bold text-[#111827] mb-1">Fecha Llegada / Inicio</label>
-                  <input type="date" required={formData.tieneDocenteInvitado} className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all" value={formData.fechaInicioDocente} onChange={e => setFormData({...formData, fechaInicioDocente: e.target.value})} />
+                  <input type="date" required={formData.tieneDocenteInvitado} className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all text-gray-900" value={formData.fechaInicioDocente} onChange={e => setFormData({...formData, fechaInicioDocente: e.target.value})} />
                 </div>
                 <div>
                   <label className="block text-sm font-bold text-[#111827] mb-1">Fecha Salida / Fin</label>
-                  <input type="date" required={formData.tieneDocenteInvitado} className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all" value={formData.fechaFinDocente} onChange={e => setFormData({...formData, fechaFinDocente: e.target.value})} />
+                  <input type="date" required={formData.tieneDocenteInvitado} className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all text-gray-900" value={formData.fechaFinDocente} onChange={e => setFormData({...formData, fechaFinDocente: e.target.value})} />
                 </div>
               </div>
             )}
@@ -242,7 +242,7 @@ export default function RequestForm() {
             {formData.reqAccesibilidad && (
               <div className="pt-2 ml-8 animate-in fade-in slide-in-from-top-2">
                 <label className="block text-sm font-bold text-[#111827] mb-1">Especificación Arquitectónica</label>
-                <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all" value={formData.tipoAccesibilidad} onChange={e => setFormData({...formData, tipoAccesibilidad: e.target.value})}>
+                <select className="w-full text-[#111827] border-gray-300 rounded p-2.5 border bg-white focus:border-[#C2A661] focus:ring-1 focus:ring-[#C2A661] outline-none transition-all text-gray-900" value={formData.tipoAccesibilidad} onChange={e => setFormData({...formData, tipoAccesibilidad: e.target.value})}>
                   <option value="Silla de Ruedas">Usuario en Silla de Ruedas (Requiere Rampa / Ascensor OBLIGATORIO)</option>
                   <option value="Solo Primera Planta">Movilidad Reducida / Muletas (Bloqueado a 1ra Planta exclusivamente)</option>
                 </select>

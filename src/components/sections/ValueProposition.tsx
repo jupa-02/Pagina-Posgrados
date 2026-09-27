@@ -9,10 +9,10 @@ export default function ValueProposition() {
             Excelencia Académica
           </span>
           <h2 className="text-4xl lg:text-5xl font-serif text-gray-900 mb-8 leading-[1.1]">
-            Investigación que transforma el Caribe y el mundo.
+            Investigación y formación que transforman el Caribe y el mundo.
           </h2>
           <p className="text-lg text-gray-600 font-light leading-relaxed mb-8">
-            La Facultad de Ciencias Económicas se erige como el epicentro de la generación de conocimiento de alto impacto en los negocios, la economía y la administración. Nuestros posgrados no solo titulan; forman líderes estratégicos capaces de resolver los problemas más complejos del sector productivo.
+            La Facultad de Ciencias Económicas se erige como el epicentro de la generación de conocimiento de alto impacto en los negocios, la economía, la auditoría en salud y la administración. Nuestra oferta modular de educación continua capacita con rigor práctico tanto a profesionales individuales como a equipos corporativos.
           </p>
           
           <div className="inline-flex flex-col gap-2 border-l-2 border-[var(--color-udec-crimson)] pl-6 py-2 text-left mt-4">

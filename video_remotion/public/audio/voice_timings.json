@@ -1,0 +1,167 @@
+{
+  "title": "Video Institucional - Plataforma de Educación Continua FCE UdeC",
+  "fps": 30,
+  "model": "gemini-3.8-flash-tts",
+  "voice": "Charon",
+  "acts": {
+    "act1": {
+      "title": "Apertura Institucional: La Evolución de la Educación Continua",
+      "audioFile": "audio/posgrados_act1.mp3",
+      "durationSec": 33.57,
+      "durationFrames": 1031,
+      "startFrame": 0,
+      "sentences": [
+        {
+          "index": 0,
+          "display": "Universidad de Cartagena: dos siglos de excelencia evolucionando hacia el futuro.",
+          "spoken": "Universidad de Cartagena. Dos siglos de excelencia académica, evolucionando hacia el futuro digital.",
+          "startFrame": 0,
+          "durationFrames": 178
+        },
+        {
+          "index": 1,
+          "display": "Presentamos la nueva Plataforma Digital de Educación Continua de la Facultad de Ciencias Económicas.",
+          "spoken": "Hoy presentamos la nueva Plataforma de Educación Continua de la Facultad de Ciencias Económicas. Una solución tecnológica de primer nivel.",
+          "startFrame": 178,
+          "durationFrames": 246
+        },
+        {
+          "index": 2,
+          "display": "Las dinámicas del mercado laboral contemporáneo exigen agilidad y precisión.",
+          "spoken": "Las dinámicas del mercado laboral exigen hoy agilidad y precisión. Los profesionales y las empresas necesitan actualizar sus competencias de forma inmediata.",
+          "startFrame": 424,
+          "durationFrames": 279
+        },
+        {
+          "index": 3,
+          "display": "Esta plataforma democratiza el acceso a la formación ejecutiva de altísimo nivel.",
+          "spoken": "Nuestra plataforma nace para responder a esa necesidad: transformar módulos de posgrado en formación continua accesible, impulsando el desarrollo profesional de la región.",
+          "startFrame": 703,
+          "durationFrames": 304
+        }
+      ]
+    },
+    "act2": {
+      "title": "Catálogo Dinámico: 124 Cursos Modulares",
+      "audioFile": "audio/posgrados_act2.mp3",
+      "durationSec": 21.37,
+      "durationFrames": 665,
+      "startFrame": 1031,
+      "sentences": [
+        {
+          "index": 0,
+          "display": "Una experiencia digital de vanguardia con 124 módulos ejecutivos.",
+          "spoken": "Hemos diseñado una experiencia digital de vanguardia. La plataforma ofrece un catálogo integral de ciento veinticuatro módulos ejecutivos de posgrado.",
+          "startFrame": 0,
+          "durationFrames": 252
+        },
+        {
+          "index": 1,
+          "display": "Búsqueda en tiempo real y filtrado inteligente.",
+          "spoken": "Gracias a un motor de búsqueda en tiempo real y filtrado inteligente, encontrar el curso adecuado toma tan solo segundos.",
+          "startFrame": 252,
+          "durationFrames": 204
+        },
+        {
+          "index": 2,
+          "display": "Cubrimos seis áreas estratégicas de alto impacto regional.",
+          "spoken": "Nuestra oferta cubre seis áreas estratégicas, desde finanzas y auditoría médica, hasta comercio internacional.",
+          "startFrame": 456,
+          "durationFrames": 185
+        }
+      ]
+    },
+    "act3": {
+      "title": "Ficha Técnica e Interactividad",
+      "audioFile": "audio/posgrados_act3.mp3",
+      "durationSec": 21.92,
+      "durationFrames": 682,
+      "startFrame": 1696,
+      "sentences": [
+        {
+          "index": 0,
+          "display": "Cada curso dispone de una ficha técnica detallada en pestañas dinámicas.",
+          "spoken": "La información es clave. Por eso, cada curso cuenta con una ficha técnica estructurada en pestañas dinámicas y de carga instantánea.",
+          "startFrame": 0,
+          "durationFrames": 233
+        },
+        {
+          "index": 1,
+          "display": "Temario, perfil docente y especificaciones de certificación, accesibles con un clic.",
+          "spoken": "Temario completo, perfil de nuestros docentes investigadores y detalles de la certificación oficial, todo a un solo clic de distancia.",
+          "startFrame": 233,
+          "durationFrames": 236
+        },
+        {
+          "index": 2,
+          "display": "Un diseño centrado en el usuario para una inscripción en tres pasos.",
+          "spoken": "Un diseño centrado en el usuario que acompaña al profesional en una inscripción intuitiva y sin fricciones.",
+          "startFrame": 469,
+          "durationFrames": 189
+        }
+      ]
+    },
+    "act4": {
+      "title": "Pasarela de Pagos Inmediata",
+      "audioFile": "audio/posgrados_act4.mp3",
+      "durationSec": 20.38,
+      "durationFrames": 635,
+      "startFrame": 2378,
+      "sentences": [
+        {
+          "index": 0,
+          "display": "Eliminamos las barreras del recaudo tradicional con una pasarela 100% digital.",
+          "spoken": "Redefinimos el recaudo. Eliminamos las barreras tradicionales integrando una pasarela de pagos cien por ciento digital y segura.",
+          "startFrame": 0,
+          "durationFrames": 214
+        },
+        {
+          "index": 1,
+          "display": "Transacciones procesadas mediante Webhooks automatizados en menos de dos segundos.",
+          "spoken": "Las transacciones son procesadas y confirmadas en menos de dos segundos mediante Webhooks automatizados.",
+          "startFrame": 214,
+          "durationFrames": 174
+        },
+        {
+          "index": 2,
+          "display": "Activación inmediata del servicio, cero intervención manual, 24/7.",
+          "spoken": "El resultado es la activación inmediata del curso. Cero intervención manual, cero errores, funcionando las veinticuatro horas del día.",
+          "startFrame": 388,
+          "durationFrames": 224
+        }
+      ]
+    },
+    "act5": {
+      "title": "Portal Corporativo: UdeC Empresas",
+      "audioFile": "audio/posgrados_act5.mp3",
+      "durationSec": 28.16,
+      "durationFrames": 869,
+      "startFrame": 3013,
+      "sentences": [
+        {
+          "index": 0,
+          "display": "El mayor salto estratégico: UdeC Empresas, nuestro portal B2B.",
+          "spoken": "Pero nuestro mayor salto estratégico es UdeC Empresas. Un ecosistema B-2-B diseñado para revolucionar la capacitación corporativa.",
+          "startFrame": 0,
+          "durationFrames": 233
+        },
+        {
+          "index": 1,
+          "display": "Asignación masiva de créditos formativos con un panel de control en tiempo real.",
+          "spoken": "Las organizaciones ahora adquieren bolsas de crédito y, mediante un sofisticado panel de control, asignan cursos a su talento humano en tiempo real.",
+          "startFrame": 233,
+          "durationFrames": 266
+        },
+        {
+          "index": 2,
+          "display": "La Universidad de Cartagena reafirma su liderazgo tecnológico y académico.",
+          "spoken": "Con esta plataforma tecnológica, la Facultad de Ciencias Económicas no solo innova, sino que reafirma el liderazgo inquebrantable de la Universidad de Cartagena hacia el futuro. Muchas gracias.",
+          "startFrame": 499,
+          "durationFrames": 346
+        }
+      ]
+    }
+  },
+  "totalFrames": 3882,
+  "totalSeconds": 129.4
+}

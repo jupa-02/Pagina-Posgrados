@@ -1,0 +1,11 @@
+import sys
+with open('scripts/record_platform_walkthroughs.py', 'r') as f:
+    content = f.read()
+
+content = content.replace('await record_clip("clip_1_hero", run_clip_hero)', '#await record_clip("clip_1_hero", run_clip_hero)')
+content = content.replace('await record_clip("clip_2_catalog", run_clip_catalog)', '#await record_clip("clip_2_catalog", run_clip_catalog)')
+content = content.replace('await record_clip("clip_3_course_tabs", run_clip_course_tabs)', '#await record_clip("clip_3_course_tabs", run_clip_course_tabs)')
+content = content.replace('await record_clip("clip_4_checkout", run_clip_checkout)', '#await record_clip("clip_4_checkout", run_clip_checkout)')
+
+with open('scripts/record_platform_walkthroughs.py', 'w') as f:
+    f.write(content)

@@ -1,8 +1,51 @@
+'use client';
+
+import { useState } from 'react';
 import Navbar from '@/components/layout/Navbar';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { CATALOGO_PROGRAMAS } from '@/data/programasData';
 
 export default function Contacto() {
+  const [nombre, setNombre] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [email, setEmail] = useState('');
+  const [programa, setPrograma] = useState('');
+  const [duda, setDuda] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const scriptUrl = process.env.NEXT_PUBLIC_GOOGLE_SCRIPT_URL;
+      if (scriptUrl) {
+        await fetch(scriptUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'contacto',
+            nombre, telefono, email, programa, duda
+          })
+        });
+      }
+      
+      alert('¡Gracias por contactarnos! Hemos recibido tu solicitud y pronto nos comunicaremos.');
+      
+      setNombre('');
+      setTelefono('');
+      setEmail('');
+      setPrograma('');
+      setDuda('');
+    } catch (error) {
+      console.error(error);
+      alert('Hubo un error enviando la solicitud. Intenta nuevamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="flex min-h-screen flex-col bg-white">
       <Navbar />
@@ -20,40 +63,40 @@ export default function Contacto() {
           {/* Form */}
           <div className="bg-[var(--color-udec-stone)] p-10 rounded-sm">
             <h3 className="text-2xl font-serif text-gray-900 mb-8">Solicita información</h3>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Nombre Completo</label>
-                  <input type="text" className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors" placeholder="Tu nombre" />
+                  <input type="text" required value={nombre} onChange={e => setNombre(e.target.value)} className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors text-gray-900" placeholder="Tu nombre" />
                 </div>
                 <div>
                   <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Teléfono</label>
-                  <input type="tel" className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors" placeholder="+57 300 000 0000" />
+                  <input type="tel" required value={telefono} onChange={e => setTelefono(e.target.value)} className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors text-gray-900" placeholder="+57 300 000 0000" />
                 </div>
               </div>
               
               <div>
                 <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Correo Electrónico</label>
-                <input type="email" className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors" placeholder="tu@email.com" />
+                <input type="email" required value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors text-gray-900" placeholder="tu@email.com" />
               </div>
 
               <div>
                 <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Programa de Interés</label>
-                <select defaultValue="" className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors text-gray-600">
+                <select value={programa} onChange={e => setPrograma(e.target.value)} className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors text-gray-900 text-sm">
                   <option value="" disabled>Seleccione un programa...</option>
                   {CATALOGO_PROGRAMAS.map(prog => (
-                    <option key={prog.id} value={prog.id}>{prog.titulo}</option>
+                    <option key={prog.id} value={prog.titulo}>{prog.titulo}</option>
                   ))}
                 </select>
               </div>
 
               <div>
                 <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Mensaje Adicional</label>
-                <textarea rows={4} className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors" placeholder="¿Tienes alguna duda específica?"></textarea>
+                <textarea rows={4} value={duda} onChange={e => setDuda(e.target.value)} className="w-full bg-white border-refined p-3 focus:outline-none focus:border-gray-900 transition-colors text-gray-900" placeholder="¿Tienes alguna duda específica?"></textarea>
               </div>
 
-              <button type="button" className="w-full bg-[var(--color-udec-crimson)] text-white py-4 text-sm font-bold tracking-wide uppercase hover:bg-gray-900 transition-colors flex justify-center items-center gap-2 mt-4">
-                Enviar Solicitud
+              <button type="submit" disabled={isSubmitting} className="w-full bg-[var(--color-udec-crimson)] text-white py-4 text-sm font-bold tracking-wide uppercase hover:bg-gray-900 transition-colors flex justify-center items-center gap-2 mt-4 disabled:opacity-70">
+                {isSubmitting ? 'Enviando...' : 'Enviar Solicitud'}
                 <Send className="w-4 h-4" />
               </button>
             </form>
