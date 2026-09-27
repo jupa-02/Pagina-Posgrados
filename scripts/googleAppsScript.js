@@ -31,23 +31,23 @@ function doPost(e) {
         htmlBody: \`
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
             <div style="text-align: center; padding: 20px 0;">
-              <h2 style="color: #8B0000; margin: 0;">¡Qué emoción tenerte aquí, \${data.nombres}! 🎉</h2>
+              <h2 style="color: #8B0000; margin: 0;">Bienvenido(a) a la Universidad de Cartagena, \${data.nombres}.</h2>
             </div>
-            <p>Hola \${data.nombres},</p>
-            <p>Queremos darte una cálida bienvenida a la comunidad de la <strong>Facultad de Ciencias Económicas de la Universidad de Cartagena</strong>. Nos llena de alegría confirmar que hemos recibido tu pre-inscripción para el curso <strong>"\${data.cursoTitulo}"</strong>.</p>
-            <p>Has dado el primer paso hacia una experiencia transformadora. Sabemos que tu tiempo y tu futuro profesional son invaluables, y por eso nos aseguraremos de que este programa supere todas tus expectativas.</p>
+            <p>Estimado(a) \${data.nombres},</p>
+            <p>Le extendemos una cordial bienvenida a la comunidad académica de la <strong>Facultad de Ciencias Económicas de la Universidad de Cartagena</strong>. Confirmamos de manera oficial la recepción de su solicitud de admisión para el programa <strong>"\${data.cursoTitulo}"</strong>.</p>
+            <p>Ha dado el primer paso hacia una experiencia académica superior. Comprendemos que su tiempo y su proyección profesional son de suma importancia; por ello, garantizamos un programa riguroso que cumpla con los más altos estándares de calidad.</p>
             
             <div style="background-color: #f0f7ff; border-left: 4px solid #0056b3; padding: 15px; margin: 20px 0;">
-              <h3 style="margin-top: 0; color: #0056b3; font-size: 16px;">🎁 Regalo Especial de Bienvenida</h3>
-              <p style="margin-bottom: 0; font-size: 14px;">Mientras esperas que nuestro asesor te contacte, queremos adelantarte valor. Descarga gratis nuestro <strong>Reporte Exclusivo de Tendencias y Futuro del Empleo</strong> <a href="#" style="color: #0056b3; font-weight: bold;">haciendo clic aquí</a>.</p>
+              <h3 style="margin-top: 0; color: #0056b3; font-size: 16px;">Material Exclusivo de Referencia</h3>
+              <p style="margin-bottom: 0; font-size: 14px;">Previo al inicio formal de su proceso de matrícula, le invitamos a consultar nuestro <strong>Reporte Exclusivo de Tendencias y Futuro del Empleo</strong>. <a href="#" style="color: #0056b3; font-weight: bold;">Acceda al documento aquí</a>.</p>
             </div>
 
-            <p><strong>¿Qué sigue ahora?</strong></p>
-            <p>Uno de nuestros asesores académicos, especializados en acompañar tu desarrollo profesional, te estará contactando muy pronto para finalizar tu matrícula y darte acceso inmediato a la plataforma.</p>
+            <p><strong>Siguientes pasos en su proceso de admisión:</strong></p>
+            <p>Un asesor académico especializado se pondrá en contacto con usted a la mayor brevedad para guiarle en la formalización de su matrícula y proporcionarle los accesos correspondientes a nuestra plataforma institucional.</p>
             
-            <div style="background-color: #fff9e6; border: 1px dashed #ffeeba; padding: 15px; margin: 20px 0; border-radius: 5px;">
-              <h3 style="margin-top: 0; color: #856404; font-size: 15px;">⏳ Bono de Acción Rápida (Válido por 48 horas)</h3>
-              <p style="margin-bottom: 0; color: #856404; font-size: 14px;">Si finalizas tu proceso de matrícula en las próximas 48 horas, te otorgaremos <strong>acceso 100% gratuito a nuestra Masterclass certificada de "Liderazgo Estratégico"</strong>. ¡No dejes que se expire tu cupo!</p>
+            <div style="background-color: #fcf8e3; border: 1px solid #faebcc; padding: 15px; margin: 20px 0; border-radius: 5px;">
+              <h3 style="margin-top: 0; color: #8a6d3b; font-size: 15px;">Beneficio de Matrícula Anticipada (Válido por 48 horas)</h3>
+              <p style="margin-bottom: 0; color: #8a6d3b; font-size: 14px;">Al formalizar su matrícula en un plazo máximo de 48 horas, la Universidad le otorgará <strong>acceso becado a la Masterclass certificada de "Liderazgo Estratégico"</strong> como complemento integral a su formación.</p>
             </div>
 
             <div style="background-color: #f9f9f9; border-left: 4px solid #8B0000; padding: 15px; margin: 20px 0;">
@@ -59,8 +59,8 @@ function doPost(e) {
             <hr style="border: none; border-top: 1px solid #eee; margin: 25px 0;">
             <p style="font-size: 13px; color: #666; font-style: italic; text-align: center;">"Únete a los más de 5,000 profesionales que han potenciado su carrera. El 85% de nuestros egresados reportan mejoras laborales en su primer año tras finalizar su programa con nosotros."</p>
 
-            <p>Gracias por confiar en nuestros 200 años de historia académica para impulsar tu talento.</p>
-            <p>Con gran entusiasmo,<br><strong>El equipo de Educación Continua UdeC</strong></p>
+            <p>Agradecemos su confianza en nuestros más de 200 años de trayectoria académica.</p>
+            <p>Atentamente,<br><strong>Dirección de Posgrados y Educación Continua<br>Universidad de Cartagena</strong></p>
           </div>
         \`
       });
@@ -74,17 +74,18 @@ function doPost(e) {
         htmlBody: \`
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
             <div style="padding: 20px 0;">
-              <h2 style="color: #8B0000; margin: 0;">¡Hola \${data.nombre}! Es un gusto saludarte.</h2>
+              <h2 style="color: #8B0000; margin: 0;">Confirmación de Recepción de Consulta</h2>
             </div>
-            <p>Gracias por acercarte a nosotros y mostrar interés en nuestra Facultad de Ciencias Económicas. Confirmamos que hemos recibido tus inquietudes sobre el programa <strong>"\${data.programa || 'nuestra oferta académica'}"</strong>.</p>
-            <p>Entendemos que elegir el camino adecuado para tu crecimiento profesional es una gran decisión, y queremos acompañarte en cada paso. Nuestro equipo ya está revisando tu caso para brindarte la asesoría más completa y humana posible.</p>
-            <p>En breve, uno de nuestros expertos en admisiones te llamará al número <strong>\${data.telefono}</strong> para escucharte, resolver todas tus dudas y ayudarte a trazar tu mejor ruta académica.</p>
+            <p>Estimado(a) <strong>\${data.nombre}</strong>,</p>
+            <p>Le agradecemos su interés en la Facultad de Ciencias Económicas. Confirmamos la recepción oficial de su solicitud de información correspondiente al programa <strong>"\${data.programa || 'nuestra oferta académica'}"</strong>.</p>
+            <p>Comprendemos la importancia que reviste la elección de un programa de posgrado para su trayectoria profesional. Nuestro comité de admisiones se encuentra evaluando sus inquietudes para brindarle la asesoría más precisa y pertinente.</p>
+            <p>A la brevedad, un asesor académico especializado se comunicará al número <strong>\${data.telefono}</strong> para orientarle de manera detallada y asistirle en el proceso de admisión institucional.</p>
             <div style="text-align: center; margin: 30px 0;">
               <p style="font-size: 14px; color: #666;">¿Tienes una duda urgente y quieres respuesta inmediata?</p>
               <a href="https://wa.me/573000000000?text=Hola,%20acabo%20de%20dejar%20mis%20datos%20en%20la%20página%20y%20tengo%20algunas%20dudas." style="display: inline-block; background-color: #8B0000; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold;">Contáctanos por WhatsApp</a>
             </div>
-            <p>Estamos aquí para ayudarte a brillar.</p>
-            <p>Un abrazo afectuoso,<br><strong>Equipo de Admisiones UdeC</strong></p>
+            <p>Quedamos a su entera disposición.</p>
+            <p>Cordialmente,<br><strong>Departamento de Admisiones<br>Universidad de Cartagena</strong></p>
           </div>
         \`
       });
@@ -98,10 +99,10 @@ function doPost(e) {
         htmlBody: \`
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333; line-height: 1.6;">
             <div style="padding: 20px 0;">
-              <h2 style="color: #8B0000; margin: 0;">Impulsando el talento de \${data.nombreEmpresa} 🚀</h2>
+              <h2 style="color: #8B0000; margin: 0;">Desarrollo Estratégico Corporativo para \${data.nombreEmpresa}</h2>
             </div>
             <p>Estimado(a) \${data.nombreContacto},</p>
-            <p>Es un verdadero placer saludarle. Desde la Facultad de Ciencias Económicas de la Universidad de Cartagena hemos recibido su solicitud corporativa para el plan <strong>"\${data.planInteres}"</strong>.</p>
+            <p>Reciba un cordial saludo. La Facultad de Ciencias Económicas de la Universidad de Cartagena confirma la recepción de su solicitud de alianza formativa correspondiente al plan <strong>"\${data.planInteres}"</strong>.</p>
             <p>Entendemos que el crecimiento de <strong>\${data.nombreEmpresa}</strong> depende de mantener a su equipo a la vanguardia, y nos enorgullece que haya pensado en nuestra institución (con sus más de 200 años de prestigio) como su aliado estratégico para lograrlo.</p>
             <p>Nuestro Director de Relacionamiento Corporativo ha sido notificado personalmente de su solicitud y se pondrá en contacto muy pronto para agendar una sesión de co-creación y una demostración exclusiva del Portal Corporativo UdeC.</p>
             <div style="background-color: #fcf8f8; border: 1px solid #eedded; padding: 20px; text-align: center; margin: 25px 0; border-radius: 8px;">
